@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cigarette Live-Wallpaper</string>
+    <string name="service_name">Cigarette Live-Wallpaper</string>
+    <string name="service_description">A cigarette smoking on your home-screen.</string>
+</resources>
