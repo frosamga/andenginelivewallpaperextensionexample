@@ -2,10 +2,11 @@ package org.anddev.wallpaper.live.cigarette;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import org.anddev.andengine.engine.EngineOptions;
-import org.anddev.andengine.engine.EngineOptions.ScreenOrientation;
+import org.anddev.andengine.engine.camera.Camera;
+import org.anddev.andengine.engine.options.EngineOptions;
+import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
+import org.anddev.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.anddev.andengine.entity.Scene;
-import org.anddev.andengine.entity.background.FixedColorBackground;
 import org.anddev.andengine.entity.particle.ParticleSystem;
 import org.anddev.andengine.entity.particle.modifier.AlphaModifier;
 import org.anddev.andengine.entity.particle.modifier.ExpireModifier;
@@ -55,7 +56,7 @@ public class LiveWallpaperService extends BaseLiveWallpaperService implements IA
 
 	@Override
 	public org.anddev.andengine.engine.Engine onLoadEngine() {
-		return new org.anddev.andengine.engine.Engine(new EngineOptions(true, this.mScreenOrientation, GAME_WIDTH, GAME_HEIGHT));
+		return new org.anddev.andengine.engine.Engine(new EngineOptions(true, this.mScreenOrientation, new FillResolutionPolicy(), new Camera(0, 0, GAME_WIDTH, GAME_HEIGHT)));
 	}
 
 	@Override
@@ -73,7 +74,7 @@ public class LiveWallpaperService extends BaseLiveWallpaperService implements IA
 	@Override
 	public Scene onLoadScene() {
 		final Scene scene = new Scene(2);
-		scene.setBackground(new FixedColorBackground(0, 0, 0));
+		scene.setBackgroundColor(0, 0, 0);
 
 		final int cigaretteX = 0;
 		final int cigaretteY = GAME_HEIGHT - this.mCigaretteTextureRegion.getHeight();
