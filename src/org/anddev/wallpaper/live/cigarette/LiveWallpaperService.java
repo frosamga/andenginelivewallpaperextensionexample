@@ -13,8 +13,9 @@ import org.anddev.andengine.entity.particle.modifier.ExpireModifier;
 import org.anddev.andengine.entity.particle.modifier.VelocityModifier;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.opengl.texture.Texture;
-import org.anddev.andengine.opengl.texture.TextureRegion;
-import org.anddev.andengine.opengl.texture.TextureRegionFactory;
+import org.anddev.andengine.opengl.texture.TextureManager;
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 import org.anddev.andengine.sensor.accelerometer.AccelerometerData;
 import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
 import org.anddev.andengine.ui.livewallpaper.BaseLiveWallpaperService;
@@ -24,8 +25,8 @@ public class LiveWallpaperService extends BaseLiveWallpaperService implements IA
 	// Constants
 	// ===========================================================
 
-	private static final int GAME_WIDTH = 512;
-	private static final int GAME_HEIGHT = 768;
+	private static final int CAMERA_WIDTH = 512;
+	private static final int CAMERA_HEIGHT = 768;
 
 	private static final int LAYER_SMOKE = 1;
 	private static final int LAYER_CIGARETTE = 0;
@@ -56,7 +57,7 @@ public class LiveWallpaperService extends BaseLiveWallpaperService implements IA
 
 	@Override
 	public org.anddev.andengine.engine.Engine onLoadEngine() {
-		return new org.anddev.andengine.engine.Engine(new EngineOptions(true, this.mScreenOrientation, new FillResolutionPolicy(), new Camera(0, 0, GAME_WIDTH, GAME_HEIGHT)));
+		return new org.anddev.andengine.engine.Engine(new EngineOptions(true, this.mScreenOrientation, new FillResolutionPolicy(), new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT)));
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class LiveWallpaperService extends BaseLiveWallpaperService implements IA
 		this.mCigaretteTextureRegion = TextureRegionFactory.createFromAsset(this.mTexture, this, "gfx/cigarette.png", 0, 0); // 400x120
 		this.mSmokeTextureRegion = TextureRegionFactory.createFromAsset(this.mTexture, this, "gfx/smoke.png", 381, 0); // 64x64
 		
-		this.getEngine().loadTexture(this.mTexture);
+		TextureManager.loadTexture(this.mTexture);
 		this.enableAccelerometer(this);
 	}
 
@@ -77,7 +78,7 @@ public class LiveWallpaperService extends BaseLiveWallpaperService implements IA
 		scene.setBackgroundColor(0, 0, 0);
 
 		final int cigaretteX = 0;
-		final int cigaretteY = GAME_HEIGHT - this.mCigaretteTextureRegion.getHeight();
+		final int cigaretteY = CAMERA_HEIGHT - this.mCigaretteTextureRegion.getHeight();
 
 		scene.getLayer(LAYER_CIGARETTE).addEntity(new Sprite(cigaretteX, cigaretteY, this.mCigaretteTextureRegion));
 		
