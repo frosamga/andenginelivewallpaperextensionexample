@@ -1,7 +1,5 @@
 package org.anddev.wallpaper.live.cigarette;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
@@ -12,13 +10,12 @@ import org.anddev.andengine.entity.particle.modifier.AlphaModifier;
 import org.anddev.andengine.entity.particle.modifier.ExpireModifier;
 import org.anddev.andengine.entity.particle.modifier.VelocityModifier;
 import org.anddev.andengine.entity.sprite.Sprite;
+import org.anddev.andengine.extension.ui.livewallpaper.BaseLiveWallpaperService;
 import org.anddev.andengine.opengl.texture.Texture;
-import org.anddev.andengine.opengl.texture.TextureManager;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 import org.anddev.andengine.sensor.accelerometer.AccelerometerData;
 import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
-import org.anddev.andengine.ui.livewallpaper.BaseLiveWallpaperService;
 
 public class LiveWallpaperService extends BaseLiveWallpaperService implements IAccelerometerListener {
 	// ===========================================================
@@ -68,7 +65,7 @@ public class LiveWallpaperService extends BaseLiveWallpaperService implements IA
 		this.mCigaretteTextureRegion = TextureRegionFactory.createFromAsset(this.mTexture, this, "gfx/cigarette.png", 0, 0); // 400x120
 		this.mSmokeTextureRegion = TextureRegionFactory.createFromAsset(this.mTexture, this, "gfx/smoke.png", 381, 0); // 64x64
 		
-		TextureManager.loadTexture(this.mTexture);
+		this.getEngine().getTextureManager().loadTexture(this.mTexture);
 		this.enableAccelerometer(this);
 	}
 
@@ -89,7 +86,6 @@ public class LiveWallpaperService extends BaseLiveWallpaperService implements IA
 		this.mVelocityModifier = new VelocityModifier(-20, 20, -100, -120);
 		smokeParticleSystem.addParticleModifier(this.mVelocityModifier);
 		smokeParticleSystem.addParticleModifier(new AlphaModifier(1, 0, 0, 10));
-		smokeParticleSystem.setBlendFunction(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		
 //		this.getEngine().registerPreFrameHandler(new FPSCounter());
 
